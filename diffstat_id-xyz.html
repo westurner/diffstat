@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>/home/wturner/workspace/.virtualenvs/workhours/src/pyramid-debugtoolbar/</title>
+    <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
+    <script type="text/javascript"> // src="stream_layers.js">
+    </script>
+    <style type="text/css">
+
+    </style>
+    <style type="text/css">
+        #chart {
+            font: 10px sans-serif;
+        }
+        line {
+            stroke: black;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+        <h1>/home/wturner/workspace/.virtualenvs/workhours/src/pyramid-debugtoolbar/</h1>
+    </div>
+    <div id="chart">
+      <button id="group" class="first" onclick="transitionGroup()">
+        Group
+      </button>
+      <button id="stack" class="active last" onclick="transitionStack()">
+        Stack
+      </button><p>
+    </div>
+    <script type="text/javascript"> // src="stack.js"> 
+
+        /* Inspired by Lee Byron's test data generator. */
+        function stream_layers(n, m, o) {
+            if (arguments.length < 3) o = 0;
+            function bump(a) {
+                var x = 1 / (.1 + Math.random()),
+                    y = 2 * Math.random() - .5,
+                    z = 10 / (.1 + Math.random());
+                for (var i = 0; i < m; i++) {
+                var w = (i / m - y) * z;
+                a[i] += x * Math.exp(-w * w);
+                }
+            }
+            return d3.range(n).map(function() {
+                var a = [], i;
+                for (i = 0; i < m; i++) a[i] = o + o * Math.random();
+                for (i = 0; i < 5; i++) bump(a);
+                return a.map(stream_index);
+            });
+        }
+
+        /* Another layer generator using gamma distributions. */
+        function stream_waves(n, m) {
+            return d3.range(n).map(function(i) {
+                return d3.range(m).map(function(j) {
+                    var x = 20 * j / m - i / 3;
+                    return 2 * x * Math.exp(-.5 * x);
+                }).map(stream_index);
+            });
+        }
+
+        function stream_index(d, i) {
+            return {x: i, y: Math.max(0, d)};
+        }
+
+        var _data = [[{"y": 650, "x": 0, "label": "2011-07-22"}, {"y": 3358, "x": 1, "label": "2011-07-23"}, {"y": 4951, "x": 2, "label": "2011-07-24"}, {"y": 292, "x": 3, "label": "2011-07-25"}, {"y": 662, "x": 4, "label": "2011-07-26"}, {"y": 221, "x": 5, "label": "2011-07-27"}, {"y": 2605, "x": 6, "label": "2011-07-29"}, {"y": 764, "x": 7, "label": "2011-07-30"}, {"y": 0, "x": 8, "label": "2011-07-31"}, {"y": 225, "x": 9, "label": "2011-08-01"}, {"y": 50, "x": 10, "label": "2011-08-06"}, {"y": 16, "x": 11, "label": "2011-08-09"}, {"y": 2, "x": 12, "label": "2011-08-10"}, {"y": 37, "x": 13, "label": "2011-08-11"}, {"y": 40, "x": 14, "label": "2011-08-12"}, {"y": 31, "x": 15, "label": "2011-08-13"}, {"y": 3, "x": 16, "label": "2011-08-14"}, {"y": 23, "x": 17, "label": "2011-08-15"}, {"y": 41, "x": 18, "label": "2011-08-16"}, {"y": 12, "x": 19, "label": "2011-08-18"}, {"y": 12, "x": 20, "label": "2011-08-20"}, {"y": 14, "x": 21, "label": "2011-08-21"}, {"y": 38, "x": 22, "label": "2011-08-24"}, {"y": 11, "x": 23, "label": "2011-08-25"}, {"y": 3, "x": 24, "label": "2011-08-26"}, {"y": 34, "x": 25, "label": "2011-08-29"}, {"y": 132, "x": 26, "label": "2011-08-30"}, {"y": 9, "x": 27, "label": "2011-09-02"}, {"y": 20, "x": 28, "label": "2011-09-05"}, {"y": 230, "x": 29, "label": "2011-09-10"}, {"y": 150, "x": 30, "label": "2011-09-11"}, {"y": 48, "x": 31, "label": "2011-09-12"}, {"y": 3, "x": 32, "label": "2011-09-13"}, {"y": 1, "x": 33, "label": "2011-09-14"}, {"y": 121, "x": 34, "label": "2011-09-21"}, {"y": 484, "x": 35, "label": "2011-09-27"}, {"y": 98, "x": 36, "label": "2011-09-28"}, {"y": 27, "x": 37, "label": "2011-10-15"}, {"y": 879, "x": 38, "label": "2011-10-16"}, {"y": 6, "x": 39, "label": "2011-10-17"}, {"y": 104, "x": 40, "label": "2011-10-20"}, {"y": 1, "x": 41, "label": "2011-10-21"}, {"y": 2, "x": 42, "label": "2011-10-22"}, {"y": 25, "x": 43, "label": "2011-10-25"}, {"y": 68, "x": 44, "label": "2011-10-26"}, {"y": 84, "x": 45, "label": "2011-11-07"}, {"y": 1, "x": 46, "label": "2011-11-08"}, {"y": 69, "x": 47, "label": "2011-11-09"}, {"y": 6, "x": 48, "label": "2011-11-10"}, {"y": 15, "x": 49, "label": "2011-11-11"}, {"y": 16, "x": 50, "label": "2011-11-12"}, {"y": 24, "x": 51, "label": "2011-11-16"}, {"y": 98, "x": 52, "label": "2011-11-24"}, {"y": 53, "x": 53, "label": "2011-12-04"}, {"y": 111, "x": 54, "label": "2011-12-05"}, {"y": 58, "x": 55, "label": "2011-12-08"}, {"y": 77, "x": 56, "label": "2011-12-09"}, {"y": 35, "x": 57, "label": "2011-12-30"}, {"y": 31, "x": 58, "label": "2012-01-06"}, {"y": 30, "x": 59, "label": "2012-01-08"}, {"y": 4, "x": 60, "label": "2012-01-09"}, {"y": 0, "x": 61, "label": "2012-01-15"}, {"y": 3, "x": 62, "label": "2012-02-14"}, {"y": 814, "x": 63, "label": "2012-02-19"}, {"y": 11, "x": 64, "label": "2012-02-20"}, {"y": 6, "x": 65, "label": "2012-02-22"}, {"y": 2, "x": 66, "label": "2012-02-28"}, {"y": 5, "x": 67, "label": "2012-03-01"}, {"y": 3073, "x": 68, "label": "2012-03-12"}, {"y": 19, "x": 69, "label": "2012-03-17"}, {"y": 19, "x": 70, "label": "2012-03-24"}, {"y": 4, "x": 71, "label": "2012-03-27"}, {"y": 7, "x": 72, "label": "2012-04-16"}, {"y": 10786, "x": 73, "label": "2012-04-18"}, {"y": 61, "x": 74, "label": "2012-04-19"}, {"y": 58, "x": 75, "label": "2012-05-11"}, {"y": 14, "x": 76, "label": "2012-06-15"}], [{"y": 0, "x": 0, "label": "2011-07-22"}, {"y": 1185, "x": 1, "label": "2011-07-23"}, {"y": 3382, "x": 2, "label": "2011-07-24"}, {"y": 219, "x": 3, "label": "2011-07-25"}, {"y": 330, "x": 4, "label": "2011-07-26"}, {"y": 89, "x": 5, "label": "2011-07-27"}, {"y": 318, "x": 6, "label": "2011-07-29"}, {"y": 111, "x": 7, "label": "2011-07-30"}, {"y": 94, "x": 8, "label": "2011-07-31"}, {"y": 56, "x": 9, "label": "2011-08-01"}, {"y": 17, "x": 10, "label": "2011-08-06"}, {"y": 3, "x": 11, "label": "2011-08-09"}, {"y": 2, "x": 12, "label": "2011-08-10"}, {"y": 10, "x": 13, "label": "2011-08-11"}, {"y": 39, "x": 14, "label": "2011-08-12"}, {"y": 5, "x": 15, "label": "2011-08-13"}, {"y": 4, "x": 16, "label": "2011-08-14"}, {"y": 12, "x": 17, "label": "2011-08-15"}, {"y": 38, "x": 18, "label": "2011-08-16"}, {"y": 6, "x": 19, "label": "2011-08-18"}, {"y": 3, "x": 20, "label": "2011-08-20"}, {"y": 11, "x": 21, "label": "2011-08-21"}, {"y": 31, "x": 22, "label": "2011-08-24"}, {"y": 1, "x": 23, "label": "2011-08-25"}, {"y": 1, "x": 24, "label": "2011-08-26"}, {"y": 15, "x": 25, "label": "2011-08-29"}, {"y": 40, "x": 26, "label": "2011-08-30"}, {"y": 8, "x": 27, "label": "2011-09-02"}, {"y": 10, "x": 28, "label": "2011-09-05"}, {"y": 224, "x": 29, "label": "2011-09-10"}, {"y": 138, "x": 30, "label": "2011-09-11"}, {"y": 28, "x": 31, "label": "2011-09-12"}, {"y": 1, "x": 32, "label": "2011-09-13"}, {"y": 1, "x": 33, "label": "2011-09-14"}, {"y": 45, "x": 34, "label": "2011-09-21"}, {"y": 216, "x": 35, "label": "2011-09-27"}, {"y": 118, "x": 36, "label": "2011-09-28"}, {"y": 13, "x": 37, "label": "2011-10-15"}, {"y": 906, "x": 38, "label": "2011-10-16"}, {"y": 4, "x": 39, "label": "2011-10-17"}, {"y": 104, "x": 40, "label": "2011-10-20"}, {"y": 1, "x": 41, "label": "2011-10-21"}, {"y": 2, "x": 42, "label": "2011-10-22"}, {"y": 25, "x": 43, "label": "2011-10-25"}, {"y": 36, "x": 44, "label": "2011-10-26"}, {"y": 0, "x": 45, "label": "2011-11-07"}, {"y": 1, "x": 46, "label": "2011-11-08"}, {"y": 0, "x": 47, "label": "2011-11-09"}, {"y": 0, "x": 48, "label": "2011-11-10"}, {"y": 2, "x": 49, "label": "2011-11-11"}, {"y": 13, "x": 50, "label": "2011-11-12"}, {"y": 4, "x": 51, "label": "2011-11-16"}, {"y": 0, "x": 52, "label": "2011-11-24"}, {"y": 18, "x": 53, "label": "2011-12-04"}, {"y": 67, "x": 54, "label": "2011-12-05"}, {"y": 77, "x": 55, "label": "2011-12-08"}, {"y": 49, "x": 56, "label": "2011-12-09"}, {"y": 22, "x": 57, "label": "2011-12-30"}, {"y": 3, "x": 58, "label": "2012-01-06"}, {"y": 6, "x": 59, "label": "2012-01-08"}, {"y": 4, "x": 60, "label": "2012-01-09"}, {"y": 0, "x": 61, "label": "2012-01-15"}, {"y": 0, "x": 62, "label": "2012-02-14"}, {"y": 782, "x": 63, "label": "2012-02-19"}, {"y": 0, "x": 64, "label": "2012-02-20"}, {"y": 5, "x": 65, "label": "2012-02-22"}, {"y": 1, "x": 66, "label": "2012-02-28"}, {"y": 0, "x": 67, "label": "2012-03-01"}, {"y": 25, "x": 68, "label": "2012-03-12"}, {"y": 5, "x": 69, "label": "2012-03-17"}, {"y": 3, "x": 70, "label": "2012-03-24"}, {"y": 4, "x": 71, "label": "2012-03-27"}, {"y": 5, "x": 72, "label": "2012-04-16"}, {"y": 873, "x": 73, "label": "2012-04-18"}, {"y": 19, "x": 74, "label": "2012-04-19"}, {"y": 23, "x": 75, "label": "2012-05-11"}, {"y": 1, "x": 76, "label": "2012-06-15"}]];
+
+        var n = 4, // number of layers
+        m = 64, // number of samples per layer
+        data = d3.layout.stack()(_data); //stream_layers(n, m, .1)),
+        color = d3.interpolateRgb("#aad", "#556");
+
+        var p = 20,
+            w = 960,
+            h = 500 - .5 - p,
+            mx = m,
+            my = d3.max(data, function(d) {
+            return d3.max(d, function(d) {
+                return d.y0 + d.y;
+            });
+            }),
+            mz = d3.max(data, function(d) {
+            return d3.max(d, function(d) {
+                return d.y;
+            });
+            }),
+            x = function(d) { return d.x * w / mx; },
+            y0 = function(d) { return h - d.y0 * h / my; },
+            y1 = function(d) { return h - (d.y + d.y0) * h / my; },
+            y2 = function(d) { return d.y * h / mz; }; // or `my` to not rescale
+
+        var vis = d3.select("#chart")
+        .append("svg")
+            .attr("width", w)
+            .attr("height", h + p);
+
+        var layers = vis.selectAll("g.layer")
+            .data(data)
+        .enter().append("g")
+            .style("fill", function(d, i) { return color(i / (n - 1)); })
+            .attr("class", "layer");
+
+        var bars = layers.selectAll("g.bar")
+            .data(function(d) { return d; })
+        .enter().append("g")
+            .attr("class", "bar")
+            .attr("transform", function(d) { return "translate(" + x(d) + ",0)"; });
+
+        bars.append("rect")
+            .attr("width", x({x: .9}))
+            .attr("x", 0)
+            .attr("y", h)
+            .attr("height", 0)
+        .transition()
+            .delay(function(d, i) { return i * 10; })
+            .attr("y", y1)
+            .attr("height", function(d) { return y0(d) - y1(d); });
+
+        var labels = vis.selectAll("text.label")
+            .data(data[0])
+            .enter().append("text")
+            .attr("class", "label")
+            .attr("x", x)
+            .attr("y", h + 6)
+            .attr("dx", x({x: .45}))
+            .attr("dy", ".71em")
+            .attr("text-anchor", "middle")
+            .text(function(d, i) { return i; });
+
+        vis.append("line")
+            .attr("x1", 0)
+            .attr("x2", w - x({x: .1}))
+            .attr("y1", h)
+            .attr("y2", h);
+
+        function transitionGroup() {
+            var group = d3.selectAll("#chart");
+
+            group.select("#group")
+                .attr("class", "first active");
+
+            group.select("#stack")
+                .attr("class", "last");
+
+            group.selectAll("g.layer rect")
+                .transition()
+                .duration(500)
+                .delay(function(d, i) { return (i % m) * 10; })
+                .attr("x", function(d, i) { return x({x: .9 * ~~(i / m) / n}); })
+                .attr("width", x({x: .9 / n}))
+                .each("end", transitionEnd);
+
+            function transitionEnd() {
+                d3.select(this)
+                .transition()
+                    .duration(500)
+                    .attr("y", function(d) { return h - y2(d); })
+                    .attr("height", y2);
+            }
+        }
+
+        function transitionStack() {
+        var stack = d3.select("#chart");
+
+        stack.select("#group")
+            .attr("class", "first");
+
+        stack.select("#stack")
+            .attr("class", "last active");
+
+        stack.selectAll("g.layer rect")
+            .transition()
+            .duration(500)
+            .delay(function(d, i) { return (i % m) * 10; })
+            .attr("y", y1)
+            .attr("height", function(d) { return y0(d) - y1(d); })
+            .each("end", transitionEnd);
+
+        function transitionEnd() {
+            d3.select(this)
+            .transition()
+                .duration(500)
+                .attr("x", 0)
+                .attr("width", x({x: .9}));
+        }
+    }
+    </script>
+  </body>
+</html>
